@@ -170,7 +170,7 @@ void exit_failsafe()
     if (failsafe_on) {
         // If necessary, do anything to the hardware needed to exit failsafe mode.
 
-        reset_failsafe();
+        reset_failsafe_timer();
         failsafe_on = false;
         log(F("Exiting fail-safe mode."));
     }
@@ -192,7 +192,7 @@ void set_failsafe(int intervalMillis)
 }
 
 // Reset the fail-safe timer 
-void reset_failsafe()
+void reset_failsafe_timer()
 {
     failsafe_last_input = millis();
 }
@@ -310,7 +310,7 @@ void dispatch_command(char * commandString)
     }
     
     // Reset the fail-safe timer.
-    reset_failsafe();
+    reset_failsafe_timer();
 }
 
 ///////////////////////////////////////////////
@@ -386,7 +386,7 @@ void setup()
     setup_servos();
     setup_serial();
     setup_bluetooth();
-    reset_failsafe();
+    reset_failsafe_timer();
 
     log(F("Hardware initialized."));
     
