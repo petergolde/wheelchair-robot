@@ -92,23 +92,32 @@ void set_motor(int motor, int speed)
 // Values designating the brakes.
 const int LEFT_BRAKE = 0;
 const int RIGHT_BRAKE = 1;
+const int LEFT_BRAKE_PIN = 3;
+const int RIGHT_BRAKE_PIN = 4;
 
-// Configure break hardware.
+// Configure brake hardware.
 void setup_brakes()
 {
-    // TODO: Configure brake hardware.
+  pinMode(LEFT_BRAKE_PIN, OUTPUT); 
+  pinMode(RIGHT_BRAKE_PIN, OUTPUT); 
+  set_brake(LEFT_BRAKE, true);
+  set_brake(RIGHT_BRAKE, true);
 }
 
 // Set a brake to on or off
 void set_brake(int brake, boolean on)
 {
-    // TODO: Set brake hardware.
-   
     const char * valueString = on ? "ON" : "OFF";
     if (brake == LEFT_BRAKE) 
+    {
+        digitalWrite(LEFT_BRAKE_PIN, on ? HIGH : LOW);
         log(F("Set left brake to:"), valueString);
+    }
     else if (brake == RIGHT_BRAKE)
+    {
+        digitalWrite(RIGHT_BRAKE_PIN, on ? HIGH : LOW);
         log(F("Set right brake to:"), valueString);
+    }
 }
 
 ///////////////////////////////////////////////
