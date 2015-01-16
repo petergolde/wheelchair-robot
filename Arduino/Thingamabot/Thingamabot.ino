@@ -21,6 +21,8 @@
 // ef:             Exit fail safe. Once fail-safe mode is entered, you must
 //                 use this command to exit.
 
+#include <Servo.h> 
+
 //////////////////////////////////////////////
 // UTILITY routines.
 
@@ -63,11 +65,19 @@ void log(const __FlashStringHelper * message, const char * value)
 // Values designating the motors.
 const int LEFT_MOTOR = 0;
 const int RIGHT_MOTOR = 1;
+const int LEFT_MOTOR_PIN = 5;
+const int RIGHT_MOTOR_PIN = 6;
+
+Servo left_motor_controller;
+Servo right_motor_controller;
 
 // Configure motor hardware.
 void setup_motors()
 {
-    // TODO: Configure motor hardware.
+  left_motor_controller.attach(LEFT_MOTOR_PIN);
+  right_motor_controller.attach(RIGHT_MOTOR_PIN);
+  set_motor(LEFT_MOTOR, 0);
+  set_motor(RIGHT_MOTOR, 0);
 }
 
 // Set a motor to a particular speed, or off.
@@ -76,14 +86,25 @@ void setup_motors()
 //         100 is full forward, -100 is full reverse
 void set_motor(int motor, int speed)
 {
-    // TODO: Set motor hardware.
     // CONSIDER: Should setting a motor to non-zero automatically turn the brakes
     // off?
   
-    if (motor == LEFT_MOTOR) 
+      // Motors are controlled by PWM so we are using servo classes to control them.
+    // 180 is full forward, 90 is off, and 0 is full backward
+    int servoValue = (speed + 100)* 9 / 10; // scale (-100 to 100) to (0 to 180)
+
+    if (motor == LEFT_MOTOR)
+    {
+        left_motor_controller.write(servoValue);
         log(F("Set left motor to:"), speed);
+        log(F(" Left PWM value is:"), servoValue);
+    }
     else if (motor == RIGHT_MOTOR)
+    {
+        right_motor_controller.write(servoValue);
         log(F("Set right motor to:"), speed);
+        log(F(" Right PWM value is:"), servoValue);
+    }
 }
 
 ///////////////////////////////////////////////
