@@ -21,7 +21,12 @@
 // ef:             Exit fail safe. Once fail-safe mode is entered, you must
 //                 use this command to exit.
 
+
+#include <SPI.h>
 #include <Servo.h> 
+#include <boards.h>
+#include <RBL_nRF8001.h>
+#include <services.h> 
 
 //////////////////////////////////////////////
 // UTILITY routines.
@@ -157,14 +162,14 @@ void setup_servos()
 // Set a servo to a particular setting.
 // "servo" is which servo to set.
 // "angle" is a value from -180 to 180, in degrees
-void set_servo(int servo, int angle)
+void set_servo(int servoID, int angle)
 {
     // TODO: Set servo hardware.
    
-    if (servo == PAN_SERVO) {
+    if (servoID == PAN_SERVO) {
         log(F("Set pan servo to:"), angle);
     }
-    else if (servo == TILT_SERVO) {
+    else if (servoID == TILT_SERVO) {
         log(F("Set tilt servo to:"), angle);
     }
 }
@@ -346,18 +351,67 @@ void dispatch_command(char * commandString)
 ///////////////////////////////////////////////
 // BLUETOOTH
 
-// Set up Bluetooth LE hardward.
-void setup_bluetooth()
+const int BLUETOOTH_BUFFER_SIZE = 80;
+char bluetooth_buffer[BLUETOOTH_BUFFER_SIZE];
+char * bluetooth_next;  // Next free character in the buffer.
+
+void clear_bluetooth_buffer()
 {
-    // TODO: Setup Bluetooth hardware.
+    bluetooth_next = bluetooth_buffer;
 }
+
 
 // Check bluetooth for a command. If a command is 
 // found, call dispatch_command.
 void read_bluetooth()
 {
-    // TODO: read characters from Bluetooth.
+    while (ble_available() > 0) {
+        int b = ble_read();
+
+        if (b == -1 || b == 0 || b == '\r') {
+            // Ignore nulls, CR.
+        }
+        else if (b == '\n' || b == '!') {
+            // LF or '!' means end of command. Dispatch the command.
+            *bluetooth_next++ ='\0';  // NUL terminate command.
+            
+            // Acknowledge command.
+            ble_write_bytes((unsigned char *)"ACK: ", 5);
+            ble_write_bytes((unsigned char *)bluetooth_buffer, strlen(bluetooth_buffer));
+            
+            // Dispatch the command.
+            dispatch_command(bluetooth_buffer);
+            clear_bluetooth_buffer();
+        }
+        else if (bluetooth_next < bluetooth_buffer + BLUETOOTH_BUFFER_SIZE - 1) {
+            // Store character into buffer.
+            *bluetooth_next++ = (char) b;
+        }
+    }
 }
+
+// Set up Bluetooth LE hardware.
+void setup_bluetooth()
+{
+    clear_bluetooth_buffer();
+    
+    // Default pins set to 9 and 8 for REQN and RDYN
+    // Set your REQN and RDYN here before ble_begin() if you need
+    ble_set_pins(7, 8);
+    
+    // Set your BLE Shield name here, max. length 10
+    ble_set_name("Thingmabot");
+    
+    // Init. and start BLE library.
+    ble_begin();
+}
+
+// This must be called from main loop to process bluetooth commands.
+void process_bluetooth()
+{
+    ble_do_events();
+}
+
 
 
 ///////////////////////////////////////////////
@@ -432,6 +486,7 @@ void loop()
     // Check for inputs. These functions will call dispatch_command
     // if an input command is read.
     read_serial();
+    process_bluetooth();
     read_bluetooth();
     
     // Check if we need to enter fail-safe mode.
