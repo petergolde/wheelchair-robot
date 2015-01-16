@@ -133,14 +133,14 @@ void setup_servos()
 // Set a servo to a particular setting.
 // "servo" is which servo to set.
 // "angle" is a value from -180 to 180, in degrees
-void set_servo(int servo, int angle)
+void set_servo(int servoID, int angle)
 {
     // TODO: Set servo hardware.
    
-    if (servo == PAN_SERVO) {
+    if (servoID == PAN_SERVO) {
         log(F("Set pan servo to:"), angle);
     }
-    else if (servo == TILT_SERVO) {
+    else if (servoID == TILT_SERVO) {
         log(F("Set tilt servo to:"), angle);
     }
 }
