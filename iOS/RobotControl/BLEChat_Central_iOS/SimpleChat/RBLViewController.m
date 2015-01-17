@@ -92,6 +92,7 @@
 }
 
 NSTimer *rssiTimer;
+NSTimer *keepAliveTimer;
 
 -(void) readRSSITimer:(NSTimer *)timer
 {
@@ -107,6 +108,11 @@ NSTimer *rssiTimer;
     self.navigationItem.leftBarButtonItem.enabled = YES;
     
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+    
+    if (keepAliveTimer != nil) {
+        [keepAliveTimer invalidate];
+        keepAliveTimer = nil;
+    }
 }
 
 -(void) bleDidConnect
@@ -115,6 +121,9 @@ NSTimer *rssiTimer;
     self.navigationItem.leftBarButtonItem.enabled = YES;
     [self.navigationItem.leftBarButtonItem setTitle:@"Disconnect"];
     
+    NSTimeInterval keepAliveInterval = 0.25;
+    
+    keepAliveTimer = [NSTimer scheduledTimerWithTimeInterval:keepAliveInterval target:self selector:@selector(keepAlive:) userInfo:nil repeats:true];
     NSLog(@"bleDidConnect");
 }
 
@@ -193,6 +202,39 @@ NSTimer *rssiTimer;
     textField.text = @"";
     
     return YES;
+}
+
+- (void)sendBleText: (NSString *)text
+{
+    NSData * d;
+    d = [text dataUsingEncoding:NSUTF8StringEncoding];
+  
+    if (bleShield.activePeripheral.state == CBPeripheralStateConnected) {
+        [bleShield write:d];
+    }
+}
+
+- (IBAction)releaseFailSafePressed:(id)sender {
+    [self sendBleText:@"ef\n"];
+    [self sendBleText:@"br 0\n"];
+    [self sendBleText:@"bl 0\n"];
+}
+
+- (IBAction)rightMotorChanged:(id)sender {
+    int val = ((int)self.leftMotorSlider.value);
+    NSString *s = [NSString stringWithFormat:@"mr %d\n", val];
+    [self sendBleText:s];
+}
+
+- (IBAction)leftMotorChanged:(id)sender {
+    int val = ((int)self.leftMotorSlider.value);
+    NSString *s = [NSString stringWithFormat:@"ml %d\n", val];
+    [self sendBleText:s];
+}
+
+- (void)keepAlive:(NSTimer *)timer
+{
+    [self sendBleText:@"ka\n"];
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification

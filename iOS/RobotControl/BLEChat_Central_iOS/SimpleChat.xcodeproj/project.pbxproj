@@ -23,7 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		195DCBBD18F3E78300B134DB /* BLEChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLEChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		195DCBBD18F3E78300B134DB /* Thingmabot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Thingmabot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		195DCBC018F3E78300B134DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		195DCBC218F3E78300B134DB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		195DCBC418F3E78300B134DB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -37,9 +37,6 @@
 		195DCBD518F3E78300B134DB /* RBLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBLViewController.h; sourceTree = "<group>"; };
 		195DCBD618F3E78300B134DB /* RBLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBLViewController.m; sourceTree = "<group>"; };
 		195DCBD818F3E78300B134DB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		195DCBE718F3E78300B134DB /* SimpleChatTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimpleChatTests-Info.plist"; sourceTree = "<group>"; };
-		195DCBE918F3E78300B134DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		195DCBEB18F3E78300B134DB /* SimpleChatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleChatTests.m; sourceTree = "<group>"; };
 		195DCBF518F3E9A700B134DB /* RBLCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLCellTableViewCell.h; sourceTree = "<group>"; };
 		195DCBF618F3E9A700B134DB /* RBLCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLCellTableViewCell.m; sourceTree = "<group>"; };
 		195DCBF818F3EA5A00B134DB /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
@@ -68,7 +65,6 @@
 			children = (
 				195DCBFC18F3F43A00B134DB /* BLE */,
 				195DCBC618F3E78300B134DB /* SimpleChat */,
-				195DCBE518F3E78300B134DB /* SimpleChatTests */,
 				195DCBBF18F3E78300B134DB /* Frameworks */,
 				195DCBBE18F3E78300B134DB /* Products */,
 			);
@@ -77,7 +73,7 @@
 		195DCBBE18F3E78300B134DB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				195DCBBD18F3E78300B134DB /* BLEChat.app */,
+				195DCBBD18F3E78300B134DB /* Thingmabot.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,24 +117,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		195DCBE518F3E78300B134DB /* SimpleChatTests */ = {
-			isa = PBXGroup;
-			children = (
-				195DCBEB18F3E78300B134DB /* SimpleChatTests.m */,
-				195DCBE618F3E78300B134DB /* Supporting Files */,
-			);
-			path = SimpleChatTests;
-			sourceTree = "<group>";
-		};
-		195DCBE618F3E78300B134DB /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				195DCBE718F3E78300B134DB /* SimpleChatTests-Info.plist */,
-				195DCBE818F3E78300B134DB /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		195DCBFC18F3F43A00B134DB /* BLE */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,7 +144,7 @@
 			);
 			name = SimpleChat;
 			productName = SimpleChat;
-			productReference = 195DCBBD18F3E78300B134DB /* BLEChat.app */;
+			productReference = 195DCBBD18F3E78300B134DB /* Thingmabot.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -242,14 +220,6 @@
 				195DCBD318F3E78300B134DB /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		195DCBE818F3E78300B134DB /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				195DCBE918F3E78300B134DB /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -336,7 +306,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				"OTHER_CFLAGS[arch=*]" = "-v";
 				OTHER_LDFLAGS = "-v";
-				PRODUCT_NAME = BLEChat;
+				PRODUCT_NAME = Thingmabot;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -351,7 +321,7 @@
 				INFOPLIST_FILE = "SimpleChat/SimpleChat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-v";
-				PRODUCT_NAME = BLEChat;
+				PRODUCT_NAME = Thingmabot;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

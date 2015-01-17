@@ -17,5 +17,9 @@
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UITextField *text;
+@property (strong, nonatomic) IBOutlet UIButton *releaseFailsafeButton;
+
+@property (strong, nonatomic) IBOutlet UISlider *leftMotorSlider;
+@property (strong, nonatomic) IBOutlet UISlider *rightMotorSlider;
 
 @end
