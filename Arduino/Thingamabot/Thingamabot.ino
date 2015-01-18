@@ -164,7 +164,7 @@ void setup_servos()
 {
   pan_servo.attach(PAN_SERVO_PIN);
   tilt_servo.attach(TILT_SERVO_PIN);
-  pan_servo.write(0);
+  pan_servo.write(90);
   tilt_servo.write(90);
 }
 
@@ -176,7 +176,7 @@ void set_servo(int servoID, int angle)
 {
    
     if (angle == 999) {
-        pan_servo.write(0);
+        pan_servo.write(90);
         tilt_servo.write(90);
     }
     else if (servoID == PAN_SERVO) {
