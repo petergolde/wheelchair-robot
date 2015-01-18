@@ -14,8 +14,8 @@
 // mr <value>:     Motor Right. Value from -100 to 100. 0 is off.
 // bl <value>:     Brake Left. 0 is off, other value is on.
 // br <value>:     Break Right. 0 is off, other value is on.
-// sp <value>:     Servo Pan. Value from -180 to 180.
-// st <value>:     Servo Tilt. Value from -180 to 180.
+// sp <value>:     Servo Pan. Value from 0 - 160 (eventually 180).
+// st <value>:     Servo Tilt. Value from 0 - 160 (eventually 180).
 // ka:             Keep alive. Prevent from entering fail-safe mode. 
 // fs <value>:     Set fail-safe interval in milliseconds. Use 0 to disable fail-safe mode.
 // ef:             Exit fail safe. Once fail-safe mode is entered, you must
@@ -152,24 +152,39 @@ void set_brake(int brake, boolean on)
 // Values designating the servos.
 const int PAN_SERVO = 0;
 const int TILT_SERVO = 1;
+const int PAN_SERVO_PIN = 9;
+const int TILT_SERVO_PIN = 10;
 
-// Configure servo hardware.
+// Declare servos
+Servo pan_servo;
+Servo tilt_servo;
+
+// Configure pan/tilt servo hardware.
 void setup_servos()
 {
-    // TODO: Configure servo hardware.
+  pan_servo.attach(PAN_SERVO_PIN);
+  tilt_servo.attach(TILT_SERVO_PIN);
+  pan_servo.write(0);
+  tilt_servo.write(90);
 }
+
 
 // Set a servo to a particular setting.
 // "servo" is which servo to set.
-// "angle" is a value from -180 to 180, in degrees
+// "angle" is a value from 0 to 160 (eventually 180), in degrees, except that 999 indicates return to home position
 void set_servo(int servoID, int angle)
 {
-    // TODO: Set servo hardware.
    
-    if (servoID == PAN_SERVO) {
+    if (angle == 999) {
+        pan_servo.write(0);
+        tilt_servo.write(90);
+    }
+    else if (servoID == PAN_SERVO) {
+        pan_servo.write(angle);
         log(F("Set pan servo to:"), angle);
     }
     else if (servoID == TILT_SERVO) {
+        tilt_servo.write(angle);
         log(F("Set tilt servo to:"), angle);
     }
 }
@@ -313,11 +328,11 @@ void dispatch_command(char * commandString)
     else if (c1 == 's') {
         // "sp" - pan servo, "st" - tilt servo
         
-        // Clamp value to -180 to 180.
-        if (value > 180)
-            value = 180;
-        else if (value < -180)
-            value = -180;
+        // Clamp value to 0 to 160 - eventually 180.
+        if (value > 160 && value != 999)  // using 999 as value to return camera to home position
+            value = 160;
+        else if (value < 0)
+            value = 0;
             
         if (c2 == 'p')
             set_servo(PAN_SERVO, value);
