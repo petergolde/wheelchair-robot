@@ -20,6 +20,8 @@
 		195DCBFA18F3EA5A00B134DB /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 195DCBF818F3EA5A00B134DB /* apple.png */; };
 		195DCBFB18F3EA5A00B134DB /* arduino.png in Resources */ = {isa = PBXBuildFile; fileRef = 195DCBF918F3EA5A00B134DB /* arduino.png */; };
 		195DCC0018F3F43A00B134DB /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 195DCBFE18F3F43A00B134DB /* BLE.m */; };
+		841B57EA1A6B4107007D13D6 /* joystick.png in Resources */ = {isa = PBXBuildFile; fileRef = 841B57E91A6B4107007D13D6 /* joystick.png */; };
+		8456F6131A6B81F4007FAD79 /* JoystickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456F6121A6B81F4007FAD79 /* JoystickView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,9 @@
 		195DCBFD18F3F43A00B134DB /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		195DCBFE18F3F43A00B134DB /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 		195DCBFF18F3F43A00B134DB /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		841B57E91A6B4107007D13D6 /* joystick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joystick.png; sourceTree = "<group>"; };
+		8456F6111A6B81DE007FAD79 /* JoystickView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JoystickView.h; sourceTree = "<group>"; };
+		8456F6121A6B81F4007FAD79 /* JoystickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoystickView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +96,8 @@
 		195DCBC618F3E78300B134DB /* SimpleChat */ = {
 			isa = PBXGroup;
 			children = (
+				841B57E91A6B4107007D13D6 /* joystick.png */,
+				8456F6111A6B81DE007FAD79 /* JoystickView.h */,
 				195DCBF818F3EA5A00B134DB /* apple.png */,
 				195DCBF918F3EA5A00B134DB /* arduino.png */,
 				195DCBCF18F3E78300B134DB /* RBLAppDelegate.h */,
@@ -102,6 +109,7 @@
 				195DCBC718F3E78300B134DB /* Supporting Files */,
 				195DCBF518F3E9A700B134DB /* RBLCellTableViewCell.h */,
 				195DCBF618F3E9A700B134DB /* RBLCellTableViewCell.m */,
+				8456F6121A6B81F4007FAD79 /* JoystickView.m */,
 			);
 			path = SimpleChat;
 			sourceTree = "<group>";
@@ -183,6 +191,7 @@
 				195DCBFB18F3EA5A00B134DB /* arduino.png in Resources */,
 				195DCBD918F3E78300B134DB /* Images.xcassets in Resources */,
 				195DCBCB18F3E78300B134DB /* InfoPlist.strings in Resources */,
+				841B57EA1A6B4107007D13D6 /* joystick.png in Resources */,
 				195DCBFA18F3EA5A00B134DB /* apple.png in Resources */,
 				195DCBD418F3E78300B134DB /* Main.storyboard in Resources */,
 			);
@@ -197,6 +206,7 @@
 			files = (
 				195DCBF718F3E9A700B134DB /* RBLCellTableViewCell.m in Sources */,
 				195DCBCD18F3E78300B134DB /* main.m in Sources */,
+				8456F6131A6B81F4007FAD79 /* JoystickView.m in Sources */,
 				195DCBD118F3E78300B134DB /* RBLAppDelegate.m in Sources */,
 				195DCC0018F3F43A00B134DB /* BLE.m in Sources */,
 				195DCBD718F3E78300B134DB /* RBLViewController.m in Sources */,

@@ -21,6 +21,7 @@
 
 @implementation RBLViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,6 +43,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
+    
+    self.joystickView = [[JoystickView alloc] initWithOuter: self frame: CGRectMake(0, 112, 320, 320)];
+    [self.view addSubview: self.joystickView];
+    
+    self.uiPickerSegmented.selectedSegmentIndex = 0;
+    self.joystickView.hidden = YES;
 }
 
 -(void) connectionTimer:(NSTimer *)timer
@@ -214,6 +221,17 @@ NSTimer *keepAliveTimer;
     }
 }
 
+- (IBAction)uiSegmentChanged:(id)sender {
+    if (self.uiPickerSegmented.selectedSegmentIndex == 0) {
+        self.joystickView.hidden = true;
+        self.tankView.hidden = false;
+    }
+    else {
+        self.joystickView.hidden = false;
+        self.tankView.hidden = true;
+    }
+}
+
 - (IBAction)releaseFailSafePressed:(id)sender {
     [self sendBleText:@"ef\n"];
     [self sendBleText:@"br 0\n"];
@@ -221,7 +239,7 @@ NSTimer *keepAliveTimer;
 }
 
 - (IBAction)rightMotorChanged:(id)sender {
-    int val = ((int)self.leftMotorSlider.value);
+    int val = ((int)self.rightMotorSlider.value);
     NSString *s = [NSString stringWithFormat:@"mr %d\n", val];
     [self sendBleText:s];
 }
@@ -230,6 +248,20 @@ NSTimer *keepAliveTimer;
     int val = ((int)self.leftMotorSlider.value);
     NSString *s = [NSString stringWithFormat:@"ml %d\n", val];
     [self sendBleText:s];
+}
+
+- (IBAction)allStopPressed:(id)sender {
+    self.leftMotorSlider.value = 0;
+    self.rightMotorSlider.value = 0;
+    
+    [self sendBleText:@"mr 0\n"];
+    [self sendBleText:@"ml 0\n"];
+}
+
+- (void) joystickTouchAtX: (float) x y:(float) y
+{
+    [self sendBleText: [NSString stringWithFormat:@"ds %d\n", (int)(y * 100)]];
+    [self sendBleText: [NSString stringWithFormat:@"dt %d\n", (int)(x * 100)]];
 }
 
 - (void)keepAlive:(NSTimer *)timer
@@ -299,3 +331,8 @@ NSTimer *keepAliveTimer;
 }
 
 @end
+
+
+
+
+

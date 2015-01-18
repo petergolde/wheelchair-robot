@@ -7,6 +7,7 @@
 //
 
 #import "RBLCellTableViewCell.h"
+#import "JoystickView.h"
 
 @implementation RBLCellTableViewCell
 
