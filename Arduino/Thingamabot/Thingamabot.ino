@@ -64,6 +64,53 @@ void log(const __FlashStringHelper * message, const char * value)
     }
 }
 
+int clamp(int value)
+{
+  if (value > 100)
+      return 100;
+  else if (value < -100)
+      return -100;
+  else
+    return value;
+}
+
+///////////////////////////////////////////////
+// Joystick
+
+const int JOYSTICK_X_PIN = 1;
+const int JOYSTICK_Y_PIN = 0;
+int joystick_x = 0;
+int joystick_y = 0;
+boolean joystick_drive_enabled = 0;
+
+
+void read_joystick()
+{
+  int x = analogRead(JOYSTICK_X_PIN);   
+  int y = analogRead(JOYSTICK_Y_PIN); 
+  joystick_x = clamp((x - 512) / 5);
+  joystick_y = clamp((y - 512) / 5);
+  if (!joystick_drive_enabled)
+  {
+    log(F("Joystick X value is:"), joystick_x);
+    log(F("Joystick Y value is:"), joystick_y);
+  }
+}
+
+void update_joystick_drive()
+{
+  if (joystick_drive_enabled)
+  {
+    read_joystick();
+    set_diff_drive(joystick_x, joystick_y);
+  }
+}
+
+void enable_joystick_drive(boolean enabled)
+{
+  joystick_drive_enabled = enabled;
+}
+
 ///////////////////////////////////////////////
 // MOTORS
 
@@ -75,6 +122,8 @@ const int RIGHT_MOTOR_PIN = 6;
 
 Servo left_motor_controller;
 Servo right_motor_controller;
+int diff_speed = 0; // differential speed is -100..100
+int diff_turn = 0;  // differential turn is -100..100
 
 // Configure motor hardware.
 void setup_motors()
@@ -83,6 +132,38 @@ void setup_motors()
   right_motor_controller.attach(RIGHT_MOTOR_PIN);
   set_motor(LEFT_MOTOR, 0);
   set_motor(RIGHT_MOTOR, 0);
+  diff_speed = 0;
+  diff_turn = 0;
+}
+
+void set_diff_turn(int new_diff_turn)
+{
+  set_diff_drive(new_diff_turn, diff_speed);
+}
+
+void set_diff_speed(int new_diff_speed)
+{
+  set_diff_drive(diff_turn, new_diff_speed);
+}
+
+void set_diff_drive(int turn, int speed)
+{
+  diff_turn = clamp(turn);
+  diff_speed = clamp(speed);
+  int right_motor_speed = 0;
+  int left_motor_speed = 0;
+  if (diff_speed >= 0)
+  {
+    right_motor_speed = diff_speed - diff_turn;
+    left_motor_speed = diff_speed + diff_turn;
+  }
+  else
+  {
+    right_motor_speed = diff_speed + diff_turn;
+    left_motor_speed = diff_speed - diff_turn;
+  }
+  set_motor(LEFT_MOTOR, left_motor_speed);
+  set_motor(RIGHT_MOTOR, right_motor_speed);
 }
 
 // Set a motor to a particular speed, or off.
@@ -101,14 +182,20 @@ void set_motor(int motor, int speed)
     if (motor == LEFT_MOTOR)
     {
         left_motor_controller.write(servoValue);
-        log(F("Set left motor to:"), speed);
-        log(F(" Left PWM value is:"), servoValue);
+        if (!joystick_drive_enabled)
+        {
+          log(F("Set left motor to:"), speed);
+          log(F(" Left PWM value is:"), servoValue);
+        }
     }
     else if (motor == RIGHT_MOTOR)
     {
         right_motor_controller.write(servoValue);
-        log(F("Set right motor to:"), speed);
-        log(F(" Right PWM value is:"), servoValue);
+        if (!joystick_drive_enabled)
+        {
+          log(F("Set right motor to:"), speed);
+          log(F(" Right PWM value is:"), servoValue);
+        }
     }
 }
 
@@ -325,6 +412,15 @@ void dispatch_command(char * commandString)
         else
             log(F("Invalid motor designator"));
     }
+    else if (c1 == 'd')
+    {
+        if (c2 == 's')
+          set_diff_speed(value);
+        else if (c2 == 't')
+          set_diff_turn(value);
+        else
+          log(F("Invalid drive parameter"));
+    }
     else if (c1 == 's') {
         // "sp" - pan servo, "st" - tilt servo
         
@@ -353,6 +449,14 @@ void dispatch_command(char * commandString)
     }
     else if (c1 == 'k' && c2 == 'a') {
         // "ka" - keep alive for failsafe. Does nothing.
+    }
+    else if (c1 == 'j' && c2 == 'r')
+    {
+        read_joystick();
+    }
+    else if (c1 == 'j' && c2 == 'd')
+    {
+        enable_joystick_drive(value);
     }
     else {
         log(F("Ignoring unknown command"));
@@ -503,6 +607,7 @@ void loop()
     read_serial();
     process_bluetooth();
     read_bluetooth();
+    update_joystick_drive();
     
     // Check if we need to enter fail-safe mode.
     check_failsafe();
