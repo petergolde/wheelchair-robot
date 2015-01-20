@@ -261,18 +261,48 @@ void setup_servos()
 // "angle" is a value from 0 to 160 (eventually 180), in degrees, except that 999 indicates return to home position
 void set_servo(int servoID, int angle)
 {
-   
+    int index;
+    
     if (angle == 999) {
         pan_servo.write(90);
         tilt_servo.write(90);
+        log(F("Camera servos reset to home:"), index);
     }
     else if (servoID == PAN_SERVO) {
-        pan_servo.write(angle);
-        log(F("Set pan servo to:"), angle);
+        index = pan_servo.read();
+        if (index > angle) {
+            for (index; index >= angle; index--) {
+                pan_servo.write(index);
+                delay(15); 
+          }
+          log(F("Set pan servo to:"), pan_servo.read()); 
+        }
+        else if (index < angle) {
+            for (index; index <= angle; index++) {
+                pan_servo.write(index);
+                delay(15);
+           }
+           log(F("Set pan servo to:"), pan_servo.read()); 
+        }
+      else log(F("Pan servo already set to:"), pan_servo.read());
     }
     else if (servoID == TILT_SERVO) {
-        tilt_servo.write(angle);
-        log(F("Set tilt servo to:"), angle);
+        index = tilt_servo.read();
+        if (index > angle) {
+            for (index; index >= angle; index--) {
+                tilt_servo.write(index);
+                delay(15);
+            }
+            log(F("Set tilt servo to:"), tilt_servo.read());  
+        }
+        else if (index < angle) {
+            for (index; index <= angle; index++) {
+                tilt_servo.write(index);
+                delay(15);
+            }
+            log(F("Set tilt servo to:"), tilt_servo.read()); 
+        }
+      else log(F("Tilt servo already set to:"), tilt_servo.read());
     }
 }
 
