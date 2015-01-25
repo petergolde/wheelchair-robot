@@ -164,6 +164,11 @@
 				CLASSPREFIX = RBL;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = redbear;
+				TargetAttributes = {
+					195DCBBC18F3E78300B134DB = {
+						DevelopmentTeam = 255D4959Y2;
+					};
+				};
 			};
 			buildConfigurationList = 195DCBB818F3E78300B134DB /* Build configuration list for PBXProject "SimpleChat" */;
 			compatibilityVersion = "Xcode 3.2";

@@ -22,7 +22,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *releaseFailsafeButton;
 
 @property (strong, nonatomic) IBOutlet UIView *tankView;
-@property (strong, nonatomic) JoystickView *joystickView;
+@property (strong, nonatomic) UIView *joystickView;
 
 @property (strong, nonatomic) IBOutlet UISlider *leftMotorSlider;
 @property (strong, nonatomic) IBOutlet UISlider *rightMotorSlider;

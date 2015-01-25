@@ -58,4 +58,9 @@
 }
 
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [((RBLViewController *) self.outer) joystickTouchAtX: 0 y:0];
+}
+
 @end
