@@ -13,6 +13,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include "RBL_nRF8001.h"
 
+// Set this to enable more debugging output. If not set, only major errors cause serial output.
+// #define RBL_DEBUG 1     
+
 #ifdef SERVICES_PIPE_TYPE_MAPPING_CONTENT
     static services_pipe_type_mapping_t
         services_pipe_type_mapping[NUMBER_OF_PIPES] = SERVICES_PIPE_TYPE_MAPPING_CONTENT;
@@ -233,11 +236,15 @@ static void process_events()
                 {
                     case ACI_DEVICE_SETUP:
                         /* When the device is in the setup mode*/
+#ifdef RBL_DEBUG
                         Serial.println(F("Evt Device Started: Setup"));
+#endif
                         setup_required = true;
                         break;
                     case ACI_DEVICE_STANDBY:
+#ifdef RBL_DEBUG
                         Serial.println(F("Evt Device Started: Standby"));
+#endif
                         //Looking for an iPhone by sending radio advertisements
                         //When an iPhone connects to us we will get an ACI_EVT_CONNECTED event from the nRF8001
                         if (aci_evt->params.device_started.hw_error)
@@ -248,7 +255,9 @@ static void process_events()
                         {
                             lib_aci_set_local_data(&aci_state, PIPE_GAP_DEVICE_NAME_SET , (uint8_t *)&device_name , strlen(device_name));
                             lib_aci_connect(180/* in seconds */, 0x0050 /* advertising interval 50ms*/);
+#ifdef RBL_DEBUG
                             Serial.println(F("Advertising started"));
+#endif
                         }
                         break;
                 }
@@ -261,10 +270,12 @@ static void process_events()
                     //ACI ReadDynamicData and ACI WriteDynamicData will have status codes of
                     //TRANSACTION_CONTINUE and TRANSACTION_COMPLETE
                     //all other ACI commands will have status code of ACI_STATUS_SCUCCESS for a successful command
+#ifdef RBL_DEBUG
                     Serial.print(F("ACI Command "));
                     Serial.println(aci_evt->params.cmd_rsp.cmd_opcode, HEX);
                     Serial.print(F("Evt Cmd respone: Status "));
                     Serial.println(aci_evt->params.cmd_rsp.cmd_status, HEX);
+#endif
                 }
                 if (ACI_CMD_GET_DEVICE_VERSION == aci_evt->params.cmd_rsp.cmd_opcode)
                 {
@@ -276,7 +287,9 @@ static void process_events()
 
             case ACI_EVT_CONNECTED:
                 is_connected = 1;
+#ifdef RBL_DEBUG
                 Serial.println(F("Evt Connected"));
+#endif
                 timing_change_done = false;
                 aci_state.data_credit_available = aci_state.data_credit_total;
                 /*Get the device version of the nRF8001 and store it in the Hardware Revision String*/
@@ -284,7 +297,9 @@ static void process_events()
                 break;
 
             case ACI_EVT_PIPE_STATUS:
+#ifdef RBL_DEBUG
                 Serial.println(F("Evt Pipe Status"));
+#endif
                 if (lib_aci_is_pipe_available(&aci_state, PIPE_UART_OVER_BTLE_UART_TX_TX) && (false == timing_change_done))
                 {
                     lib_aci_change_timing_GAP_PPCP(); // change the timing on the link as specified in the nRFgo studio -> nRF8001 conf. -> GAP.
@@ -294,20 +309,28 @@ static void process_events()
                 break;
 
             case ACI_EVT_TIMING:
+#ifdef RBL_DEBUG
                 Serial.println(F("Evt link connection interval changed"));
+#endif
                 break;
 
             case ACI_EVT_DISCONNECTED:
                 is_connected = 0;
                 ack = 1;
+#ifdef RBL_DEBUG
                 Serial.println(F("Evt Disconnected/Advertising timed out"));
+#endif
                 lib_aci_connect(30/* in seconds */, 0x0050 /* advertising interval 100ms*/);
+#ifdef RBL_DEBUG
                 Serial.println(F("Advertising started"));
+#endif
                 break;
 
             case ACI_EVT_DATA_RECEIVED:
+#ifdef RBL_DEBUG
                 Serial.print(F("Pipe Number: "));
                 Serial.println(aci_evt->params.data_received.rx_data.pipe_number, DEC);
+#endif
                 for(int i=0; i<aci_evt->len - 2; i++)
                 {
                     if(rx_buffer_len == MAX_RX_BUFF)
@@ -329,9 +352,11 @@ static void process_events()
 
             case ACI_EVT_DATA_CREDIT:
                 aci_state.data_credit_available = aci_state.data_credit_available + aci_evt->params.data_credit.credit;
+#ifdef RBL_DEBUG
                 Serial.print("ACI_EVT_DATA_CREDIT     ");
                 Serial.print("Data Credit available: ");
                 Serial.println(aci_state.data_credit_available,DEC);
+#endif
                 ack=1;
                 break;
 
@@ -403,19 +428,25 @@ void ble_do_events()
             {
                 if(true == lib_aci_send_data(PIPE_UART_OVER_BTLE_UART_TX_TX, &tx_buff[Index], 20))
                 {
+#ifdef RBL_DEBUG
                     Serial.print("data transmmit success!  Length: ");
                     Serial.print(20, DEC);
                     Serial.print("    ");
+#endif
                 }
                 else
                 {
-                    Serial.println("data transmmit fail !");
+ #ifdef RBL_DEBUG
+                   Serial.println("data transmmit fail !");
+#endif
                 }
                 tx_buffer_len -= 20;
                 Index += 20;
                 aci_state.data_credit_available--;
+#ifdef RBL_DEBUG
                 Serial.print("Data Credit available: ");
                 Serial.println(aci_state.data_credit_available,DEC);
+#endif
                 ack = 0;
                 while (!ack)
                     process_events();
@@ -423,18 +454,24 @@ void ble_do_events()
 
             if(true == lib_aci_send_data(PIPE_UART_OVER_BTLE_UART_TX_TX,& tx_buff[Index], tx_buffer_len))
             {
+#ifdef RBL_DEBUG
                 Serial.print("data transmmit success!  Length: ");
                 Serial.print(tx_buffer_len, DEC);
                 Serial.print("    ");
+#endif
             }
             else
             {
+#ifdef RBL_DEBUG
                 Serial.println("data transmmit fail !");
+#endif
             }
             tx_buffer_len = 0;
             aci_state.data_credit_available--;
+#ifdef RBL_DEBUG
             Serial.print("Data Credit available: ");
             Serial.println(aci_state.data_credit_available,DEC);
+#endif
             ack = 0;
             while (!ack)
                 process_events();

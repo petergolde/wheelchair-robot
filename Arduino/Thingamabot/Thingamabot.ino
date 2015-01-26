@@ -21,17 +21,36 @@
 // ef:             Exit fail safe. Once fail-safe mode is entered, you must
 //                 use this command to exit.
 
+#define BLUETOOTH 1    // Set this to 1 to have Bluetooth support enabled.
 
 #include <SPI.h>
 #include <Servo.h> 
 #include <boards.h>
+#if BLUETOOTH
 #include <RBL_nRF8001.h>
+#endif
 #include <services.h> 
+
+//////////////////////////////////////////////
+// PIN ASSIGNMENTS
+
+const int JOYSTICK_X_PIN = 1;  // This is an ANALOG PIN number
+const int JOYSTICK_Y_PIN = 0;  // This is an ANALOG PIN number
+
+// These are all digital pin numbers. 
+// DO NOT DUPLICATE!
+const int LEFT_MOTOR_PIN = 5;
+const int RIGHT_MOTOR_PIN = 6;
+const int PAN_SERVO_PIN = 9;
+const int TILT_SERVO_PIN = 10;
+const int REQN_PIN = 7;
+const int RDYN_PIN = 8;
+
 
 //////////////////////////////////////////////
 // UTILITY routines.
 
-boolean logging = true;      // Set to true to enable logging to serial port.
+boolean logging = false;      // Set to true to enable logging to serial port.
 
 // Log a message.
 void log(const __FlashStringHelper * message)
@@ -77,8 +96,6 @@ int clamp(int value)
 ///////////////////////////////////////////////
 // Joystick
 
-const int JOYSTICK_X_PIN = 1;
-const int JOYSTICK_Y_PIN = 0;
 int joystick_x = 0;
 int joystick_y = 0;
 boolean joystick_drive_enabled = 0;
@@ -117,8 +134,6 @@ void enable_joystick_drive(boolean enabled)
 // Values designating the motors.
 const int LEFT_MOTOR = 0;
 const int RIGHT_MOTOR = 1;
-const int LEFT_MOTOR_PIN = 5;
-const int RIGHT_MOTOR_PIN = 6;
 
 Servo left_motor_controller;
 Servo right_motor_controller;
@@ -239,8 +254,6 @@ void set_brake(int brake, boolean on)
 // Values designating the servos.
 const int PAN_SERVO = 0;
 const int TILT_SERVO = 1;
-const int PAN_SERVO_PIN = 9;
-const int TILT_SERVO_PIN = 10;
 
 // Declare servos
 Servo pan_servo;
@@ -500,6 +513,7 @@ void dispatch_command(char * commandString)
 ///////////////////////////////////////////////
 // BLUETOOTH
 
+#if BLUETOOTH
 const int BLUETOOTH_BUFFER_SIZE = 80;
 char bluetooth_buffer[BLUETOOTH_BUFFER_SIZE];
 char * bluetooth_next;  // Next free character in the buffer.
@@ -508,12 +522,13 @@ void clear_bluetooth_buffer()
 {
     bluetooth_next = bluetooth_buffer;
 }
-
+#endif
 
 // Check bluetooth for a command. If a command is 
 // found, call dispatch_command.
 void read_bluetooth()
 {
+#if BLUETOOTH
     while (ble_available() > 0) {
         int b = ble_read();
 
@@ -537,28 +552,32 @@ void read_bluetooth()
             *bluetooth_next++ = (char) b;
         }
     }
+#endif
 }
 
 // Set up Bluetooth LE hardware.
 void setup_bluetooth()
 {
+#if BLUETOOTH
     clear_bluetooth_buffer();
     
-    // Default pins set to 9 and 8 for REQN and RDYN
     // Set your REQN and RDYN here before ble_begin() if you need
-    ble_set_pins(7, 8);
+    ble_set_pins(REQN_PIN, RDYN_PIN);
     
     // Set your BLE Shield name here, max. length 10
     ble_set_name("Thingmabot");
     
     // Init. and start BLE library.
     ble_begin();
+#endif
 }
 
 // This must be called from main loop to process bluetooth commands.
 void process_bluetooth()
 {
+#if BLUETOOTH
     ble_do_events();
+#endif
 }
 
 
