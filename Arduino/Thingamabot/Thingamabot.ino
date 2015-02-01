@@ -169,13 +169,13 @@ void set_diff_drive(int turn, int speed)
   int left_motor_speed = 0;
   if (diff_speed >= 0)
   {
-    right_motor_speed = diff_speed - diff_turn;
-    left_motor_speed = diff_speed + diff_turn;
+    right_motor_speed = diff_speed + diff_turn;
+    left_motor_speed = diff_speed - diff_turn;
   }
   else
   {
-    right_motor_speed = diff_speed + diff_turn;
-    left_motor_speed = diff_speed - diff_turn;
+    right_motor_speed = diff_speed - diff_turn;
+    left_motor_speed = diff_speed + diff_turn;
   }
   set_motor(LEFT_MOTOR, left_motor_speed);
   set_motor(RIGHT_MOTOR, right_motor_speed);
