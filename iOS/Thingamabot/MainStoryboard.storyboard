@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4451" systemVersion="13A461" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="7">
             <objects>
                 <navigationController definesPresentationContext="YES" id="8" sceneMemberID="viewController">
@@ -17,11 +17,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="279" y="-10"/>
+            <point key="canvasLocation" x="70" y="-29"/>
         </scene>
+        <!--Thingamabot-->
         <scene sceneID="13">
             <objects>
-                <viewController id="10" sceneMemberID="viewController" customClass="ThingamabotViewController">
+                <viewController id="10" customClass="ThingamabotViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5"/>
                         <viewControllerLayoutGuide type="bottom" id="6"/>
@@ -29,7 +30,6 @@
                     <view key="view" contentMode="scaleToFill" id="15">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="21" misplaced="YES">
                                 <rect key="frame" x="98.5" y="72" width="123" height="29"/>
@@ -37,33 +37,160 @@
                                     <segment title="Joystick"/>
                                     <segment title="Throttle"/>
                                 </segments>
+                                <connections>
+                                    <action selector="ControlSchemeChanged:" destination="10" id="140" eventType="valueChanged"/>
+                                </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="41" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="117" y="518" width="86" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="41">
+                                <rect key="frame" x="0.0" y="498" width="320" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="FULL STOP!">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <constraints>
+                                    <constraint id="108" firstAttribute="height" constant="30"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="HandleFullStopClicked:" destination="10" id="152" eventType="touchUpInside"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="96" translatesAutoresizingMaskIntoConstraints="NO" opaque="NO" clearsContextBeforeDrawing="NO">
+                                <rect key="frame" x="20" y="116" width="280" height="362"/>
+                                <color key="backgroundColor" customColorSpace="calibratedWhite" colorSpace="calibratedRGB" red="0" green="0" blue="0" alpha="0"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="149" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="538" width="118" height="30"/>
+                                <state key="normal" title="Release Fail Safe">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleColor" colorSpace="calibratedRGB" red="1" green="0" blue="0" alpha="1"/>
                                 </state>
+                                <connections>
+                                    <action selector="HandleReleaseFailSafeClicked:" destination="10" id="153" eventType="touchUpInside"/>
+                                </connections>
                             </button>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint id="38" firstItem="21" firstAttribute="centerX" secondItem="15" secondAttribute="centerX" constant="0.0"/>
-                            <constraint id="39" constant="72" firstItem="21" firstAttribute="top" secondItem="15" secondAttribute="top"/>
-                            <constraint firstItem="41" firstAttribute="centerX" secondItem="15" secondAttribute="centerX" constant="0.0" id="42"/>
-                            <constraint firstItem="15" firstAttribute="bottom" secondItem="41" secondAttribute="bottom" constant="20" id="43"/>
+                            <constraint id="101" firstItem="15" firstAttribute="centerX" secondItem="21" secondAttribute="centerX" constant="0.0"/>
+                            <constraint id="102" constant="72" firstItem="21" firstAttribute="top" secondItem="15" secondAttribute="top"/>
+                            <constraint id="105" firstItem="41" firstAttribute="centerX" secondItem="15" secondAttribute="centerX" constant="0.0"/>
+                            <constraint id="106" constant="40" firstItem="15" firstAttribute="bottom" secondItem="41" secondAttribute="bottom"/>
+                            <constraint id="109" firstItem="15" firstAttribute="trailing" secondItem="96" secondAttribute="trailing" constant="20"/>
+                            <constraint firstItem="96" firstAttribute="leading" secondItem="15" secondAttribute="leading" constant="20" id="115"/>
+                            <constraint firstItem="96" firstAttribute="top" secondItem="21" secondAttribute="bottom" constant="16" id="116"/>
+                            <constraint firstItem="96" firstAttribute="bottom" secondItem="41" secondAttribute="top" constant="-20" id="117"/>
+                            <constraint firstItem="15" firstAttribute="trailing" secondItem="41" secondAttribute="trailing" constant="0.0" id="128"/>
+                            <constraint firstItem="41" firstAttribute="leading" secondItem="15" secondAttribute="leading" constant="0.0" id="129"/>
+                            <constraint firstItem="149" firstAttribute="leading" secondItem="15" secondAttribute="leading" constant="20" id="150"/>
+                            <constraint firstItem="149" firstAttribute="bottom" secondItem="15" secondAttribute="bottom" constant="0.0" id="151"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Thingamabot" id="14">
-                        <barButtonItem title="Connect" id="44" translatesAutoresizingMaskIntoConstraints="NO" key="leftBarButtonItem"/>
+                        <barButtonItem key="leftBarButtonItem" title="Connect" id="44">
+                            <connections>
+                                <action selector="ConnectClicked:" destination="10" id="51"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="stopButton" destination="41" id="name-outlet-41"/>
                         <outlet property="connectButton" destination="44" id="name-outlet-44"/>
+                        <outlet property="stopButton" destination="41" id="name-outlet-41"/>
+                        <outlet property="controlView" destination="96" id="name-outlet-96"/>
+                        <outlet property="releaseFailSafeButton" destination="149" id="name-outlet-149"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="813" y="-10"/>
+            <point key="canvasLocation" x="448" y="-26"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="72">
+            <objects>
+                <viewController autoresizesArchivedViewToFullSize="NO" id="73" sceneMemberID="viewController" customClass="JoystickViewController" storyboardIdentifier="JoystickViewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="70"/>
+                        <viewControllerLayoutGuide type="bottom" id="71"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="74" placeholderIntrinsicWidth="250" placeholderIntrinsicHeight="250">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Joystick" lineBreakMode="tailTruncation" minimumFontSize="10" id="83" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="50" y="76" width="156" height="21"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="250" height="250"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="75" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="945" y="-45"/>
+        </scene>
+        <scene sceneID="90">
+            <objects>
+                <viewController id="91" sceneMemberID="viewController" customClass="ThrottleViewController" storyboardIdentifier="ThrottleViewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="88"/>
+                        <viewControllerLayoutGuide type="bottom" id="89"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="92">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.0" minValue="-100" maxValue="100" id="162" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                <rect key="frame" x="20" y="34" width="210" height="31"/>
+                                <constraints>
+                                    <constraint id="170" firstItem="162" firstAttribute="height" constant="31"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="LeftMotorChanged:" destination="91" id="172" eventType="valueChanged"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.0" minValue="-100" maxValue="100" id="163" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                <rect key="frame" x="20" y="110" width="210" height="31"/>
+                                <constraints>
+                                    <constraint id="169" firstItem="163" firstAttribute="height" constant="31"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="RightMotorChanged:" destination="91" id="173" eventType="valueChanged"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="162" firstAttribute="leading" secondItem="92" secondAttribute="leading" constant="20" id="164"/>
+                            <constraint firstItem="92" firstAttribute="trailing" secondItem="162" secondAttribute="trailing" constant="20" id="165"/>
+                            <constraint firstItem="162" firstAttribute="top" secondItem="88" secondAttribute="bottom" constant="20" id="166"/>
+                            <constraint firstItem="163" firstAttribute="leading" secondItem="92" secondAttribute="leading" constant="20" id="167"/>
+                            <constraint firstItem="92" firstAttribute="trailing" secondItem="163" secondAttribute="trailing" constant="20" id="168"/>
+                            <constraint firstItem="163" firstAttribute="top" secondItem="162" secondAttribute="bottom" constant="45" id="171"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size width="250" height="250" key="freeformSize"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="leftMotorSlider" destination="162" id="name-outlet-162"/>
+                        <outlet property="rightMotorSlider" destination="163" id="name-outlet-163"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="93" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="929" y="304"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

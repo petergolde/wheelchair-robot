@@ -1,1 +1,35 @@
-﻿<Properties StartupItem="Thingamabot.csproj" />
+﻿<Properties StartupItem="Thingamabot.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone5.8.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RobotControl.cs">
+    <Files>
+      <File FileName="RblSerialBluetooth.cs" Line="51" Column="51" />
+      <File FileName="Main.cs" Line="1" Column="1" />
+      <File FileName="ThingamabotViewController.designer.cs" Line="1" Column="1" />
+      <File FileName="JoystickViewController.cs" Line="1" Column="1" />
+      <File FileName="JoystickViewController.designer.cs" Line="1" Column="1" />
+      <File FileName="ThingamabotViewController.cs" Line="1" Column="1" />
+      <File FileName="ThrottleViewController.cs" Line="1" Column="1" />
+      <File FileName="ThrottleViewController.designer.cs" Line="1" Column="1" />
+      <File FileName="RobotControl.cs" Line="47" Column="47" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Thingamabot" expanded="True">
+            <Node name="ComponentReferenceFolder" expanded="True" />
+            <Node name="JoystickViewController.cs" expanded="True" />
+            <Node name="RobotControl.cs" selected="True" />
+            <Node name="ThingamabotViewController.cs" expanded="True" />
+            <Node name="ThrottleViewController.cs" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Catchpoint exceptionName="System.Exception" includeSubclasses="True" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -117,6 +117,16 @@
     <Compile Include="ThingamabotViewController.designer.cs">
       <DependentUpon>ThingamabotViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="RblSerialBluetooth.cs" />
+    <Compile Include="JoystickViewController.cs" />
+    <Compile Include="JoystickViewController.designer.cs">
+      <DependentUpon>JoystickViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThrottleViewController.cs" />
+    <Compile Include="ThrottleViewController.designer.cs">
+      <DependentUpon>ThrottleViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RobotControl.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

@@ -90,10 +90,6 @@
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.3.1.6296\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.3.1.6296\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <ItemGroup>
-    <Folder Include="Resources\drawable-xhdpi\" />
-    <Folder Include="Resources\drawable-xxhdpi\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Robotics.Mobile.BtLEExplorer.Core\Robotics.Mobile.BtLEExplorer.Core.csproj">
       <Project>{A1E14BEA-A9D9-46C5-83AA-8891A13E4837}</Project>
       <Name>Robotics.Mobile.BtLEExplorer.Core</Name>

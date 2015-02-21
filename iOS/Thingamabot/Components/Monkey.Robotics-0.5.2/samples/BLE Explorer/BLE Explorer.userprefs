@@ -1,0 +1,34 @@
+﻿<Properties StartupItem="Robotics.Mobile.BtLEExplorer.iOS/Robotics.Mobile.BtLEExplorer.iOS.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Robotics.Mobile.BtLEExplorer.iOS/AppDelegate.cs">
+    <Files>
+      <File FileName="Robotics.Mobile.BtLEExplorer.Core/App.cs" Line="28" Column="28" />
+      <File FileName="Robotics.Mobile.BtLEExplorer.Core/Pages/CharacteristicDetail.xaml.cs" Line="1" Column="1" />
+      <File FileName="Robotics.Mobile.BtLEExplorer.Core/Pages/ServiceList.xaml.cs" Line="1" Column="1" />
+      <File FileName="Robotics.Mobile.BtLEExplorer.Core/Pages/DeviceList.xaml.cs" Line="1" Column="1" />
+      <File FileName="Robotics.Mobile.BtLEExplorer.iOS/AppDelegate.cs" Line="8" Column="8" />
+      <File FileName="Robotics.Mobile.BtLEExplorer.iOS/Main.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Robotics.Mobile.BtLEExplorer.Core" expanded="True">
+            <Node name="Packages" expanded="True" />
+            <Node name="Extensions" expanded="True" />
+            <Node name="Pages" expanded="True">
+              <Node name="CharacteristicDetail.xaml" expanded="True" />
+              <Node name="CharacteristicDetail_TISensor.xaml" expanded="True" />
+              <Node name="DeviceList.xaml" expanded="True" />
+              <Node name="ServiceList.xaml" expanded="True" />
+            </Node>
+          </Node>
+          <Node name="Robotics.Mobile.BtLEExplorer.iOS" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
