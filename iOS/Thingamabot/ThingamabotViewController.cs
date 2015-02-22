@@ -57,6 +57,8 @@ namespace Thingamabot
         partial void HandleReleaseFailSafeClicked(UIButton sender)
         {
             SendRobotCommand("ef", 0, 1);
+            SendRobotCommand("bl", 0, 1);
+            SendRobotCommand("br", 0, 1);
         }
 
         void HandleConnectionChanged (object sender, EventArgs e)
