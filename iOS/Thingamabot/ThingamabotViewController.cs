@@ -73,6 +73,7 @@ namespace Thingamabot
         {
             connectButton.Title = "Disconnect";
             robotControl = new RobotControl(bluetooth);
+            SoundPlayer.PlayWavFile("on thingamabot.wav");
         }
 
         void Disconnected()
@@ -82,6 +83,7 @@ namespace Thingamabot
                 robotControl.Dispose();
                 robotControl = null;
             }
+            SoundPlayer.PlayWavFile("off thingamabot.wav");
         }
 
         partial void ControlSchemeChanged(UISegmentedControl sender)
