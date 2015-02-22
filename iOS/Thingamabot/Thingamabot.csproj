@@ -127,6 +127,7 @@
       <DependentUpon>ThrottleViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="RobotControl.cs" />
+    <Compile Include="JoystickControl.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

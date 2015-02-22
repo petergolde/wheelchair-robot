@@ -46,14 +46,6 @@ namespace Thingamabot
 
         void MergeInQueue(ControlCommand command)
         {
-            if (command.Priority == 2) {
-                // A critical command clears out all other non-critical commands.
-                for (int i = commandQueue.Count - 1; i >= 0; --i) {
-                    if (commandQueue[i].Priority < 2)
-                        commandQueue.RemoveAt(i);
-                }
-            }
-
             // See if there is already a command of the given kind. If so, just 
             // replace it.
             for (int i = 0; i < commandQueue.Count; ++i) {
@@ -66,7 +58,7 @@ namespace Thingamabot
             // Insert into the correct place based on priority.
             int index;
             for (index = 0; index < commandQueue.Count; ++index) {
-                if (commandQueue[index].Priority <= command.Priority)
+                if (commandQueue[index].Priority < command.Priority)
                     break;
             }
 
@@ -96,6 +88,7 @@ namespace Thingamabot
         {
             string text = string.Format("{0} {1}\n", command.CommandName, command.Value);
             writer.SendText(text);
+            Console.WriteLine(text);
         }
     }
 

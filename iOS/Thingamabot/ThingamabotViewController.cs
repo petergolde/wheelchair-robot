@@ -47,6 +47,11 @@ namespace Thingamabot
         {
             SendRobotCommand("ml", 0, 2);
             SendRobotCommand("mr", 0, 2);
+
+            foreach (var vc in childViewControllers) {
+                ((IThingamabotChildController)vc).Reset();
+            }
+
         }
 
         partial void HandleReleaseFailSafeClicked(UIButton sender)
@@ -109,11 +114,12 @@ namespace Thingamabot
             childViewControllers.Add(joystickViewController);  
 
             ThrottleViewController throttleViewController = (ThrottleViewController) Storyboard.InstantiateViewController("ThrottleViewController");
-            throttleViewController.robotViewController = this;
             childViewControllers.Add(throttleViewController);
 
-            foreach (var vc in childViewControllers)
+            foreach (var vc in childViewControllers) {
                 this.AddChildViewController(vc);
+                ((IThingamabotChildController)vc).RobotViewController = this;
+            }
 
             ShowChildControlViewController(0);
         }
@@ -139,6 +145,12 @@ namespace Thingamabot
         }
 
         #endregion
+    }
+
+    interface IThingamabotChildController: IDisposable
+    {
+        void Reset();
+        ThingamabotViewController RobotViewController { get; set; }
     }
 }
 

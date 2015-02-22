@@ -11,19 +11,11 @@ using UIKit;
 
 namespace Thingamabot
 {
-	[Register ("JoystickViewController")]
-	partial class JoystickViewController
+	[Register ("JoystickControl")]
+	partial class JoystickControl
 	{
-		[Outlet]
-		[GeneratedCode ("iOS Designer", "1.0")]
-		JoystickControl joystick { get; set; }
-
 		void ReleaseDesignerOutlets ()
 		{
-			if (joystick != null) {
-				joystick.Dispose ();
-				joystick = null;
-			}
 		}
 	}
 }

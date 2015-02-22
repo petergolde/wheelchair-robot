@@ -16,29 +16,29 @@ namespace Thingamabot
 	{
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		UISlider leftMotorSlider { get; set; }
+		UISlider speedMotorSlider { get; set; }
 
 		[Outlet]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		UISlider rightMotorSlider { get; set; }
+		UISlider turnMotorSlider { get; set; }
 
-		[Action ("LeftMotorChanged:")]
+		[Action ("SpeedMotorChanged:")]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		partial void LeftMotorChanged (UISlider sender);
+		partial void SpeedMotorChanged (UISlider sender);
 
-		[Action ("RightMotorChanged:")]
+		[Action ("TurnMotorChanged:")]
 		[GeneratedCode ("iOS Designer", "1.0")]
-		partial void RightMotorChanged (UISlider sender);
+		partial void TurnMotorChanged (UISlider sender);
 
 		void ReleaseDesignerOutlets ()
 		{
-			if (leftMotorSlider != null) {
-				leftMotorSlider.Dispose ();
-				leftMotorSlider = null;
+			if (speedMotorSlider != null) {
+				speedMotorSlider.Dispose ();
+				speedMotorSlider = null;
 			}
-			if (rightMotorSlider != null) {
-				rightMotorSlider.Dispose ();
-				rightMotorSlider = null;
+			if (turnMotorSlider != null) {
+				turnMotorSlider.Dispose ();
+				turnMotorSlider = null;
 			}
 		}
 	}
