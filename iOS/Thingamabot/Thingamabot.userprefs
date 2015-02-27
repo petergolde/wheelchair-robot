@@ -1,6 +1,6 @@
 ﻿<Properties StartupItem="Thingamabot.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="AppStore|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Resources/Images.xcassets/AppIcons.appiconset/Contents.json">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.Workbench>
     <Files>
       <File FileName="RblSerialBluetooth.cs" Line="1" Column="1" />
       <File FileName="Main.cs" Line="1" Column="1" />
